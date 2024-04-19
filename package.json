@@ -5,12 +5,15 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "shx rm -rf ./node_modules && shx rm -rf ./**/node_modules"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "shx": "^0.3.4",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",

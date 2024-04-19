@@ -37,7 +37,7 @@ export const HeartsModal = () => {
         <DialogHeader>
           <div className="flex items-center w-full justify-center mb-5">
             <Image
-              src="/mascot_bad.svg"
+              src="/logo.png"
               alt="Mascot"
               height={80}
               width={80}

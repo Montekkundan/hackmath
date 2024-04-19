@@ -1,5 +1,90 @@
 import { relations } from "drizzle-orm";
-import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, unique } from "drizzle-orm/pg-core";
+
+export const userRoleEnum = pgEnum("UserRole", ["ADMIN", "USER"]);
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  name: text("name"),
+  email: text("email").unique(),
+  emailVerified: timestamp("email_verified"),
+  image: text("image"),
+  password: text("password"),
+  role: userRoleEnum("role").default("USER"),
+  isTwoFactorEnabled: boolean("is_two_factor_enabled").default(false),
+});
+
+export const accounts = pgTable('accounts', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  type: text('type').notNull(),
+  provider: text('provider').notNull(),
+  providerAccountId: text('provider_account_id').notNull(),
+  refresh_token: text('refresh_token'),
+  access_token: text('access_token'),
+  expires_at: integer('expires_at'),
+  token_type: text('token_type'),
+  scope: text('scope'),
+  id_token: text('id_token'),
+  session_state: text('session_state'),
+}, (t) => ({
+  providerAccountIdUnique: unique().on(t.provider, t.providerAccountId),
+}));
+
+
+export const verificationTokens = pgTable("verification_tokens", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  token: text("token").notNull(),
+  expires: timestamp("expires").notNull(),
+}, (t) => ({
+  emailTokenUnique: unique().on(t.email, t.token),
+}));
+
+export const passwordResetTokens = pgTable("password_reset_tokens", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  token: text("token").notNull(),
+  expires: timestamp("expires").notNull(),
+}, (t) => ({
+  emailTokenUnique: unique().on(t.email, t.token),
+}));
+
+export const twoFactorTokens = pgTable("two_factor_tokens", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  token: text("token").notNull(),
+  expires: timestamp("expires").notNull(),
+}, (t) => ({
+  emailTokenUnique: unique().on(t.email, t.token),
+}));
+
+export const twoFactorConfirmations = pgTable("two_factor_confirmations", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+}, (t) => ({
+  userIdUnique: unique().on(t.userId),
+}));
+
+
+export const usersRelations = relations(users, ({ many }) => ({
+  accounts: many(accounts),
+  twoFactorConfirmation: many(twoFactorConfirmations),
+}));
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
+
+export const twoFactorConfirmationsRelations = relations(twoFactorConfirmations, ({ one }) => ({
+  user: one(users, {
+    fields: [twoFactorConfirmations.userId],
+    references: [users.id],
+  }),
+}));
 
 export const courses = pgTable("courses", {
   id: serial("id").primaryKey(),
@@ -80,12 +165,16 @@ export const challengeOptionsRelations = relations(challengeOptions, ({ one }) =
 
 export const challengeProgress = pgTable("challenge_progress", {
   id: serial("id").primaryKey(),
-  userId: text("user_id").notNull(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
   challengeId: integer("challenge_id").references(() => challenges.id, { onDelete: "cascade" }).notNull(),
   completed: boolean("completed").notNull().default(false),
 });
 
 export const challengeProgressRelations = relations(challengeProgress, ({ one }) => ({
+  user: one(users, {
+    fields: [challengeProgress.userId],
+    references: [users.id],
+  }),
   challenge: one(challenges, {
     fields: [challengeProgress.challengeId],
     references: [challenges.id],
@@ -93,9 +182,7 @@ export const challengeProgressRelations = relations(challengeProgress, ({ one })
 }));
 
 export const userData = pgTable("user_data", {
-  userId: text("user_id").primaryKey(),
-  userName: text("user_name").notNull().default("User"),
-  userImageSrc: text("user_image_src").notNull().default("/logo.png"),
+  userId: integer("user_id").primaryKey().references(() => users.id, { onDelete: "cascade" }),
   activeCourseId: integer("active_course_id").references(() => courses.id, { onDelete: "cascade" }),
   hearts: integer("hearts").notNull().default(5),
   points: integer("points").notNull().default(0),
@@ -105,18 +192,31 @@ export const userData = pgTable("user_data", {
   reason: text("reason"),
 });
 
+
 export const userDataRelations = relations(userData, ({ one }) => ({
+  user: one(users, {
+    fields: [userData.userId],
+    references: [users.id],
+  }),
   activeCourse: one(courses, {
     fields: [userData.activeCourseId],
     references: [courses.id],
   }),
 }));
 
+
 export const userSubscription = pgTable("user_subscription", {
   id: serial("id").primaryKey(),
-  userId: text("user_id").notNull().unique(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull().unique(),
   stripeCustomerId: text("stripe_customer_id").notNull().unique(),
   stripeSubscriptionId: text("stripe_subscription_id").notNull().unique(),
   stripePriceId: text("stripe_price_id").notNull(),
   stripeCurrentPeriodEnd: timestamp("stripe_current_period_end").notNull(),
 });
+
+export const userSubscriptionRelations = relations(userSubscription, ({ one }) => ({
+  user: one(users, {
+    fields: [userSubscription.userId],
+    references: [users.id],
+  }),
+}));

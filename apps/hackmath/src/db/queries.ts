@@ -1,6 +1,5 @@
 import { cache } from "react";
-import { eq } from "drizzle-orm";
-import { auth } from "@clerk/nextjs";
+import { desc, eq, sql } from "drizzle-orm";
 
 import db from "@/db/drizzle";
 import { 
@@ -10,10 +9,12 @@ import {
   units, 
   userData,
   userSubscription,
+  users,
 } from "@/db/schema";
+import { currentUserId } from "@/lib/auth";
 
 export const getUserOnboardingProgress = cache(async () => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) {
     return null;
@@ -27,7 +28,7 @@ export const getUserOnboardingProgress = cache(async () => {
 });
 
 export const getUserData = cache(async () => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) {
     return null;
@@ -44,7 +45,7 @@ export const getUserData = cache(async () => {
 });
 
 export const getUnits = cache(async () => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const userData = await getUserData();
 
   if (!userId || !userData?.activeCourseId) {
@@ -122,7 +123,7 @@ export const getCourseById = cache(async (courseId: number) => {
 });
 
 export const getCourseProgress = cache(async () => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const userData = await getUserData();
 
   if (!userId || !userData?.activeCourseId) {
@@ -166,7 +167,7 @@ export const getCourseProgress = cache(async () => {
 });
 
 export const getLesson = cache(async (id?: number) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) {
     return null;
@@ -234,7 +235,7 @@ export const getLessonPercentage = cache(async () => {
 
 const DAY_IN_MS = 86_400_000;
 export const getUserSubscription = cache(async () => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) return null;
 
@@ -254,23 +255,24 @@ export const getUserSubscription = cache(async () => {
   };
 });
 
-export const getTopTenUsers = cache(async () => {
-  const { userId } = await auth();
+export const getTopTenUsers = async () => {
+  try {
+    const leaderboardData = await db.query.userData.findMany({
+      orderBy: (userData, { desc }) => desc(userData.points), // Adjust based on actual schema and desired ordering
+      limit: 10,
+      with: {
+        user: true, 
+      },
+    });
 
-  if (!userId) {
-    return [];
+    return leaderboardData.map((item) => ({
+      userId: item.userId, 
+      userName: item.user.name,
+      userImageSrc: item.user.image,
+      points: item.points
+    }));
+  } catch (error) {
+    console.error('Error fetching leaderboard data:', error);
+    return null;
   }
-
-  const data = await db.query.userData.findMany({
-    orderBy: (userData, { desc }) => [desc(userData.points)],
-    limit: 10,
-    columns: {
-      userId: true,
-      userName: true,
-      userImageSrc: true,
-      points: true,
-    },
-  });
-
-  return data;
-});
+};

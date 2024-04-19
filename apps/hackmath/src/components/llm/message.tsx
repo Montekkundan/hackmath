@@ -2,12 +2,12 @@
 
 import { IconAI, IconUser } from '@/components/ui/icons';
 import { cn } from '@/lib/utils';
-import { useUser } from "@clerk/nextjs";
 import { Avatar, AvatarImage } from '../ui/avatar';
 import ReactMarkdown from 'react-markdown';
+import { useCurrentUser } from '@/lib/hooks/use-current-user';
 
 export function UserMessage({ children }: { children: React.ReactNode }) {
-  const { user } = useUser();
+  const user = useCurrentUser();
   return (
     <div className="group relative flex items-start md:-ml-12">
       <div className="flex h-8 w-8 shrink-0 select-none items-center justify-center ">
@@ -17,13 +17,13 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
         >
           <AvatarImage
             className="object-cover"
-            src={user?.imageUrl}
+            src={user?.image || '/logo.png'}
           />
         </Avatar>
       </div>
       <div className="ml-4 flex-1 space-y-2 overflow-hidden px-1">
         <div className='font-bold'>
-          {user?.firstName || 'You'}
+          {user?.name || 'You'}
         </div>
         {children}
       </div>

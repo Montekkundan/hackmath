@@ -60,7 +60,7 @@ const LearderboardPage = async () => {
             See where you stand among other learners in the community.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
-          {leaderboard.map((userData, index) => (
+          {leaderboard?.map((userData, index) => (
             <div 
               key={userData.userId}
               className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50"
@@ -71,7 +71,7 @@ const LearderboardPage = async () => {
               >
                 <AvatarImage
                   className="object-cover"
-                  src={userData.userImageSrc}
+                  src={userData.userImageSrc || ""}
                 />
               </Avatar>
               <p className="font-bold text-neutral-800 flex-1">

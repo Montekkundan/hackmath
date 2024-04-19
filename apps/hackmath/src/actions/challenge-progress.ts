@@ -1,15 +1,15 @@
 "use server";
 
-import { auth } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import db from "@/db/drizzle";
 import { getUserData, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userData } from "@/db/schema";
+import { currentUser, currentUserId } from "@/lib/auth";
 
 export const upsertChallengeProgress = async (challengeId: number) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) {
     throw new Error("Unauthorized"); 
@@ -34,7 +34,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
 
   const existingChallengeProgress = await db.query.challengeProgress.findFirst({
     where: and(
-      eq(challengeProgress.userId, userId),
+      eq(challengeProgress.userId, Number(userId)),
       eq(challengeProgress.challengeId, challengeId),
     ),
   });
@@ -60,7 +60,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     await db.update(userData).set({
       hearts: Math.min(currentUserProgress.hearts + 1, 5),
       points: currentUserProgress.points + 10,
-    }).where(eq(userData.userId, userId));
+    }).where(eq(userData.userId, Number(userId)));
 
     revalidatePath("/learn");
     revalidatePath("/lesson");
@@ -71,14 +71,14 @@ export const upsertChallengeProgress = async (challengeId: number) => {
   }
 
   await db.insert(challengeProgress).values({
-    challengeId,
-    userId,
+    challengeId: Number(challengeId),
+    userId: Number(userId), 
     completed: true,
-  });
+  }).execute(); 
 
   await db.update(userData).set({
     points: currentUserProgress.points + 10,
-  }).where(eq(userData.userId, userId));
+  }).where(eq(userData.userId, Number(userId)));
 
   revalidatePath("/learn");
   revalidatePath("/lesson");

@@ -6,11 +6,15 @@ import { NextResponse } from "next/server";
 import db from "@/db/drizzle";
 import { stripe } from "@/lib/stripe";
 import { userSubscription } from "@/db/schema";
+import { currentUserId } from "@/lib/auth";
 
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
-
+  const userId = await currentUserId();
+  if (typeof userId !== 'number') {
+    return new NextResponse("User ID is undefined or invalid", { status: 400 });
+  }
   let event: Stripe.Event;
 
   try {
@@ -37,7 +41,7 @@ export async function POST(req: Request) {
     }
 
     await db.insert(userSubscription).values({
-      userId: session.metadata.userId,
+      userId: userId,
       stripeSubscriptionId: subscription.id,
       stripeCustomerId: subscription.customer as string,
       stripePriceId: subscription.items.data[0].price.id,

@@ -3,15 +3,15 @@
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { auth, currentUser } from "@clerk/nextjs";
 
 import db from "@/db/drizzle";
 import { POINTS_TO_REFILL } from "@/constants";
 import { getCourseById, getUserData, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userData } from "@/db/schema";
+import { currentUser, currentUserId } from "@/lib/auth";
 
 export const upsertUserData = async (courseId: number) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const user = await currentUser();
 
   if (!userId || !user) {
@@ -33,8 +33,6 @@ export const upsertUserData = async (courseId: number) => {
   if (existingUserData) {
     await db.update(userData).set({
       activeCourseId: courseId,
-      userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/courses");
@@ -45,8 +43,6 @@ export const upsertUserData = async (courseId: number) => {
   await db.insert(userData).values({
     userId,
     activeCourseId: courseId,
-    userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/courses");
@@ -55,7 +51,7 @@ export const upsertUserData = async (courseId: number) => {
 };
 
 export const upsertUserGrade = async (grade: string) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const user = await currentUser();
 
   if (!userId || !user) {
@@ -67,8 +63,6 @@ export const upsertUserGrade = async (grade: string) => {
   if (existingUserData) {
     await db.update(userData).set({
       grade: grade,
-      userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -79,8 +73,6 @@ export const upsertUserGrade = async (grade: string) => {
   await db.insert(userData).values({
     userId,
     grade: grade,
-    userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -88,7 +80,7 @@ export const upsertUserGrade = async (grade: string) => {
     redirect("/onboarding/study");
 };
 export const upsertUserStudy = async (study: string) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const user = await currentUser();
 
   if (!userId || !user) {
@@ -100,8 +92,6 @@ export const upsertUserStudy = async (study: string) => {
   if (existingUserData) {
     await db.update(userData).set({
       study: study,
-      userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -112,8 +102,6 @@ export const upsertUserStudy = async (study: string) => {
   await db.insert(userData).values({
     userId,
     study: study,
-    userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -121,7 +109,7 @@ export const upsertUserStudy = async (study: string) => {
     redirect("/onboarding/topics");
 };
 export const upsertUserTopics = async (topics: string) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const user = await currentUser();
 
   if (!userId || !user) {
@@ -133,8 +121,6 @@ export const upsertUserTopics = async (topics: string) => {
   if (existingUserData) {
     await db.update(userData).set({
       topics: topics,
-      userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -145,8 +131,6 @@ export const upsertUserTopics = async (topics: string) => {
   await db.insert(userData).values({
     userId,
     topics: topics,
-    userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -154,7 +138,7 @@ export const upsertUserTopics = async (topics: string) => {
     redirect("/onboarding/reason");
 };
 export const upsertUserReason = async (reason: string) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
   const user = await currentUser();
 
   if (!userId || !user) {
@@ -166,8 +150,6 @@ export const upsertUserReason = async (reason: string) => {
   if (existingUserData) {
     await db.update(userData).set({
       reason: reason,
-      userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -178,8 +160,6 @@ export const upsertUserReason = async (reason: string) => {
   await db.insert(userData).values({
     userId,
     reason: reason,
-    userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -187,7 +167,7 @@ export const upsertUserReason = async (reason: string) => {
   redirect("/onboarding/success");
 };
 export const reduceHearts = async (challengeId: number) => {
-  const { userId } = await auth();
+  const userId = await currentUserId();
 
   if (!userId) {
     throw new Error("Unauthorized");

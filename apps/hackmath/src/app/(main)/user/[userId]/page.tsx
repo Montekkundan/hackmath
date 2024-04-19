@@ -1,19 +1,25 @@
-"use client";
-import { useUser } from '@clerk/nextjs';
-import React from 'react'
+import React from 'react';
+import { useCurrentUser } from '@/lib/hooks/use-current-user';
+import { Avatar, AvatarImage } from "@/components/ui/avatar";  // Assuming Avatar components are available for displaying user images
 
 function User() {
-const { user } = useUser();
+  const user = useCurrentUser();
+
+  if (!user) return <div>Loading...</div>;  // Display a loading message until the user data is fetched
+
   return (
     <div>
-        Hello {user?.fullName}
-        {user?.emailAddresses.map((email) => (
-          <div key={email.id}>
-            {email.emailAddress}
-          </div>
-        ))}
+      <div>Hello, {user.name}</div>
+      {user.email && (
+        <div>Email: {user.email}</div>
+      )}
+      {user.image && (
+        <Avatar>
+          <AvatarImage src={user.image || ""} alt="User Image" />
+        </Avatar>
+      )}
     </div>
-  )
+  );
 }
 
-export default User
+export default User;

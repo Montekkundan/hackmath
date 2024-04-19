@@ -1,4 +1,4 @@
-import { SignIn } from '@clerk/nextjs'
+import { RegisterForm } from '@/components/auth/register-form'
 import Image from 'next/image'
 import React from 'react'
 
@@ -19,7 +19,7 @@ const Page = () => {
         />
       </div>
       <div className="flex items-center justify-center w-full lg:min-h-screen">
-        <SignIn />
+        <RegisterForm />
       </div>
     </div>
   )
