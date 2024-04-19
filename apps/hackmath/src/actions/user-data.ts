@@ -34,7 +34,7 @@ export const upsertUserData = async (courseId: number) => {
     await db.update(userData).set({
       activeCourseId: courseId,
       userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/mascot.png",
+      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/courses");
@@ -46,7 +46,7 @@ export const upsertUserData = async (courseId: number) => {
     userId,
     activeCourseId: courseId,
     userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/mascot.png",
+    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/courses");
@@ -68,7 +68,7 @@ export const upsertUserGrade = async (grade: string) => {
     await db.update(userData).set({
       grade: grade,
       userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/mascot.png",
+      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -80,7 +80,7 @@ export const upsertUserGrade = async (grade: string) => {
     userId,
     grade: grade,
     userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/mascot.png",
+    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -101,7 +101,7 @@ export const upsertUserStudy = async (study: string) => {
     await db.update(userData).set({
       study: study,
       userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/mascot.png",
+      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -113,7 +113,7 @@ export const upsertUserStudy = async (study: string) => {
     userId,
     study: study,
     userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/mascot.png",
+    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -134,7 +134,7 @@ export const upsertUserTopics = async (topics: string) => {
     await db.update(userData).set({
       topics: topics,
       userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/mascot.png",
+      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -146,7 +146,7 @@ export const upsertUserTopics = async (topics: string) => {
     userId,
     topics: topics,
     userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/mascot.png",
+    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");
@@ -167,7 +167,7 @@ export const upsertUserReason = async (reason: string) => {
     await db.update(userData).set({
       reason: reason,
       userName: user.firstName || "User",
-      userImageSrc: user.imageUrl || "/mascot.png",
+      userImageSrc: user.imageUrl || "/logo.png",
     }).where(eq(userData.userId, userId));
 
     revalidatePath("/learn");
@@ -179,7 +179,7 @@ export const upsertUserReason = async (reason: string) => {
     userId,
     reason: reason,
     userName: user.firstName || "User",
-    userImageSrc: user.imageUrl || "/mascot.png",
+    userImageSrc: user.imageUrl || "/logo.png",
   });
 
   revalidatePath("/learn");

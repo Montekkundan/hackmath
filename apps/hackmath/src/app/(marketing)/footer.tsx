@@ -100,7 +100,7 @@ export const Footer = () => {
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
-          <Image src="/mascot.png" height={40} width={40} alt="Mascot" />
+          <Image src="/logo.png" height={40} width={40} alt="Mascot" />
 
             <p className="text-sm leading-6 text-gray-600">
               Making the world a better place.

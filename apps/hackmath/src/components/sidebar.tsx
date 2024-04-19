@@ -23,7 +23,7 @@ export const Sidebar = ({ className }: Props) => {
     )}>
       <Link href="/learn">
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-          <Image src="/mascot.png" height={40} width={40} alt="Mascot" />
+          <Image src="/logo.png" height={40} width={40} alt="Mascot" />
           <h1 className="text-2xl font-extrabold tracking-wide">
             HackMath.
           </h1>
@@ -36,14 +36,9 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/images/learn.svg"
         />
         <SidebarItem 
-          label="Courses" 
-          href="/courses"
-          iconSrc="/images/courses.svg"
-        />
-        <SidebarItem 
-          label="Analytics" 
-          href="/analytics"
-          iconSrc="/images/analytics.svg"
+          label="Challenges " 
+          href="/challenges"
+          iconSrc="/images/challenges.svg"
         />
         <SidebarItem 
           label="dr ham" 
@@ -51,17 +46,17 @@ export const Sidebar = ({ className }: Props) => {
           iconSrc="/drham.svg"
         />
         <SidebarItem 
+          label="Analytics" 
+          href="/analytics"
+          iconSrc="/images/analytics.svg"
+        />
+        <SidebarItem 
           label="Leaderboard" 
           href="/leaderboard"
           iconSrc="/images/leaderboard.svg"
         />
         <SidebarItem 
-          label="quests" 
-          href="/quests"
-          iconSrc="/images/quests.svg"
-        />
-        <SidebarItem 
-          label="shop" 
+          label="shop"  
           href="/shop"
           iconSrc="/images/shop.svg"
         />
