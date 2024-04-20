@@ -2,10 +2,6 @@
 // TODO fix type errors
 import NextAuth from 'next-auth';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
 
 import authConfig from '@/auth.config';
 import { getUserById } from '@/data/user';
@@ -14,6 +10,7 @@ import { getAccountByUserId } from './data/account';
 import db from './db/drizzle';
 import { twoFactorConfirmations, users } from './db/schema';
 import { eq } from 'drizzle-orm';
+import { UserRole } from './types/next-auth';
 
 export const {
   handlers: { GET, POST },

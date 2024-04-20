@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import { NextResponse } from "next/server";
 
 import authConfig from "@/auth.config";
 import {
@@ -11,6 +10,8 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
+// TODO fix type issue 
+// @ts-ignore
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
@@ -20,11 +21,14 @@ export default auth((req) => {
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
-    return NextResponse.next();
+    return null;
   }
 
-  if (isAuthRoute && isLoggedIn) {
-    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  if (isAuthRoute) {
+    if (isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    }
+    return null;
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -34,11 +38,15 @@ export default auth((req) => {
     }
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-    return NextResponse.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
+
+    return Response.redirect(new URL(
+      `/auth/login?callbackUrl=${encodedCallbackUrl}`,
+      nextUrl
+    ));
   }
 
-  return NextResponse.next();
-});
+  return null;
+})
 
 // Optionally, don't invoke Middleware on some paths
 export const config = {

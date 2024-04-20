@@ -58,14 +58,29 @@ export const generatePasswordResetToken = async (email: string) => {
       .where(eq(passwordResetTokens.id, existingToken.id));
   }
 
-  const passwordResetToken = await db.insert(passwordResetTokens).values({
-    email,
-    token,
-    expires,
-  });
+  await db
+    .insert(passwordResetTokens)
+    .values({
+      email,
+      token,
+      expires,
+    })
+    .execute();
+
+  const passwordResetToken = await db
+    .select({
+      email: passwordResetTokens.email,
+      token: passwordResetTokens.token,
+    })
+    .from(passwordResetTokens)
+    .where(eq(passwordResetTokens.email, email))
+    .orderBy(desc(passwordResetTokens.id))
+    .limit(1)
+    .execute();
 
   return passwordResetToken;
 };
+
 
 export const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
@@ -99,6 +114,5 @@ export const generateVerificationToken = async (email: string) => {
     .orderBy(desc(verificationTokens.id))
     .limit(1)
     .execute();
-  console.log('verificationToken', verificationToken);
   return verificationToken;
 };

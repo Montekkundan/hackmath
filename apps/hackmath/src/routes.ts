@@ -7,6 +7,7 @@ export const publicRoutes = [
     "/",
     "/about", 
     "/blog",
+    "/api/blog",
     "/api/webhooks/stripe",
     "/auth/new-verification"
   ];
@@ -21,7 +22,8 @@ export const publicRoutes = [
     "/auth/register",
     "/auth/error",
     "/auth/reset",
-    "/auth/new-password"
+    "/auth/new-password",
+    "/learn",
   ];
   
   /**
@@ -35,4 +37,4 @@ export const publicRoutes = [
    * The default redirect path after logging in
    * @type {string}
    */
-  export const DEFAULT_LOGIN_REDIRECT = "/settings";
+  export const DEFAULT_LOGIN_REDIRECT = "/learn";
