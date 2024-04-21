@@ -23,7 +23,6 @@ export const publicRoutes = [
     "/auth/error",
     "/auth/reset",
     "/auth/new-password",
-    "/learn",
   ];
   
   /**
@@ -37,4 +36,4 @@ export const publicRoutes = [
    * The default redirect path after logging in
    * @type {string}
    */
-  export const DEFAULT_LOGIN_REDIRECT = "/learn";
+  export const DEFAULT_LOGIN_REDIRECT = "/settings";
