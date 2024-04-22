@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SettingsSchema } from "@/schemas";
+import { SettingsSchema, UserRole } from "@/schemas";
 import {
   Card,
   CardHeader,
@@ -167,7 +167,7 @@ const SettingsPage = () => {
                   />
                 </>
               )}
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="role"
                 render={({ field }) => (
@@ -195,7 +195,7 @@ const SettingsPage = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
               {user?.isOAuth === false && (
                 <FormField
                   control={form.control}
@@ -210,7 +210,7 @@ const SettingsPage = () => {
                       </div>
                       <FormControl>
                         <Switch
-                          disabled={isPending}
+                          disabled={true}
                           checked={field.value}
                           onCheckedChange={field.onChange}
                         />

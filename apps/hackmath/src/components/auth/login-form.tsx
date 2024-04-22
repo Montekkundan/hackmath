@@ -25,7 +25,7 @@ import { login } from "@/actions/login";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || '/settings';
+  const callbackUrl = searchParams.get("callbackUrl") || '/learn';
   console.log('callbackUrl:', callbackUrl);
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
     ? "Email already in use with different provider!"
@@ -113,7 +113,7 @@ export const LoginForm = () => {
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="john.doe@example.com"
+                          placeholder="montek@rocks.com"
                           type="email"
                         />
                       </FormControl>
