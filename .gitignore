@@ -41,3 +41,6 @@ yarn-error.log*
 _cacache
 _logs
 _update-notifier*
+
+_libvips
+_prebuilds
