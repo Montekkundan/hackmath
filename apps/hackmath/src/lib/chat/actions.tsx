@@ -12,11 +12,11 @@ import {
   createStreamableValue
 } from 'ai/rsc'
 
-import { BotCard, BotMessage } from '@/components/stocks'
+import { BotCard, BotMessage } from '@/components/llm-plus'
 
 import { nanoid, sleep } from '@/lib/utils'
-import { saveChat } from '@/app/actions'
-import { SpinnerMessage, UserMessage } from '@/components/stocks/message'
+import { saveChat } from '@/app/kc/actions'
+import { SpinnerMessage, UserMessage } from '@/components/llm-plus/message'
 import { Chat } from '../types'
 import { auth } from '@/auth'
 import { FlightStatus } from '@/components/flights/flight-status'
@@ -42,7 +42,7 @@ const genAI = new GoogleGenerativeAI(
 async function describeImage(imageBase64: string) {
   'use server'
 
-  await rateLimit()
+  // await rateLimit()
 
   const aiState = getMutableAIState()
   const spinnerStream = createStreamableUI(null)
@@ -132,7 +132,7 @@ async function describeImage(imageBase64: string) {
 async function submitUserMessage(content: string) {
   'use server'
 
-  await rateLimit()
+  // await rateLimit()
 
   const aiState = getMutableAIState()
 
@@ -166,13 +166,13 @@ async function submitUserMessage(content: string) {
         temperature: 0,
         tools: {
           listDestinations: {
-            description: 'List destination cities, max 5.',
+            description: 'List of math topics, max 5.',
             parameters: z.object({
               destinations: z.array(
                 z
                   .string()
                   .describe(
-                    'List of destination cities. Include rome as one of the cities.'
+                    'List mathematical topic for the student to choose. eg algebra calculus'
                   )
               )
             })
@@ -245,21 +245,14 @@ async function submitUserMessage(content: string) {
           }
         },
         system: `\
-      You are a friendly assistant that helps the user with booking flights to destinations that are based on a list of books. You can you give travel recommendations based on the books, and will continue to help the user book a flight to their destination.
+        You are Dr. Ham, a virtual math teacher assistant. Today, you will help the student navigate through various math concepts and solve problems effectively.
   
-      The date today is ${format(new Date(), 'd LLLL, yyyy')}. 
-      The user's current location is San Francisco, CA, so the departure city will be San Francisco and airport will be San Francisco International Airport (SFO). The user would like to book the flight out on May 12, 2024.
+      The date today is ${format(new Date(), 'd LLLL, yyyy')}.
 
-      List United Airlines flights only.
       
       Here's the flow: 
-        1. List holiday destinations based on a collection of books.
-        2. List flights to destination.
-        3. Choose a flight.
-        4. Choose a seat.
-        5. Choose hotel
-        6. Purchase booking.
-        7. Show boarding pass.
+      1. List math concepts based on the student's interest.
+      2. Display math problems related to the chosen concept.
       `,
         messages: [...history]
       })
@@ -317,147 +310,148 @@ async function submitUserMessage(content: string) {
                 }
               ]
             })
-          } else if (toolName === 'showFlights') {
-            aiState.done({
-              ...aiState.get(),
-              interactions: [],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  id: nanoid(),
-                  role: 'assistant',
-                  content:
-                    "Here's a list of flights for you. Choose one and we can proceed to pick a seat.",
-                  display: {
-                    name: 'showFlights',
-                    props: {
-                      summary: args
-                    }
-                  }
-                }
-              ]
-            })
+          } 
+          // else if (toolName === 'showFlights') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's a list of flights for you. Choose one and we can proceed to pick a seat.",
+          //         display: {
+          //           name: 'showFlights',
+          //           props: {
+          //             summary: args
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <ListFlights summary={args} />
-              </BotCard>
-            )
-          } else if (toolName === 'showSeatPicker') {
-            aiState.done({
-              ...aiState.get(),
-              interactions: [],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  id: nanoid(),
-                  role: 'assistant',
-                  content:
-                    "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
-                  display: {
-                    name: 'showSeatPicker',
-                    props: {
-                      summary: args
-                    }
-                  }
-                }
-              ]
-            })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <ListFlights summary={args} />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showSeatPicker') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
+          //         display: {
+          //           name: 'showSeatPicker',
+          //           props: {
+          //             summary: args
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <SelectSeats summary={args} />
-              </BotCard>
-            )
-          } else if (toolName === 'showHotels') {
-            aiState.done({
-              ...aiState.get(),
-              interactions: [],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  id: nanoid(),
-                  role: 'assistant',
-                  content:
-                    "Here's a list of hotels for you to choose from. Select one to proceed to payment.",
-                  display: {
-                    name: 'showHotels',
-                    props: {}
-                  }
-                }
-              ]
-            })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <SelectSeats summary={args} />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showHotels') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's a list of hotels for you to choose from. Select one to proceed to payment.",
+          //         display: {
+          //           name: 'showHotels',
+          //           props: {}
+          //         }
+          //       }
+          //     ]
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <ListHotels />
-              </BotCard>
-            )
-          } else if (toolName === 'checkoutBooking') {
-            aiState.done({
-              ...aiState.get(),
-              interactions: []
-            })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <ListHotels />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'checkoutBooking') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: []
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <PurchaseTickets />
-              </BotCard>
-            )
-          } else if (toolName === 'showBoardingPass') {
-            aiState.done({
-              ...aiState.get(),
-              interactions: [],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  id: nanoid(),
-                  role: 'assistant',
-                  content:
-                    "Here's your boarding pass. Please have it ready for your flight.",
-                  display: {
-                    name: 'showBoardingPass',
-                    props: {
-                      summary: args
-                    }
-                  }
-                }
-              ]
-            })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <PurchaseTickets />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showBoardingPass') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's your boarding pass. Please have it ready for your flight.",
+          //         display: {
+          //           name: 'showBoardingPass',
+          //           props: {
+          //             summary: args
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <BoardingPass summary={args} />
-              </BotCard>
-            )
-          } else if (toolName === 'showFlightStatus') {
-            aiState.update({
-              ...aiState.get(),
-              interactions: [],
-              messages: [
-                ...aiState.get().messages,
-                {
-                  id: nanoid(),
-                  role: 'assistant',
-                  content: `The flight status of ${args.flightCode} is as follows:
-                Departing: ${args.departingCity} at ${args.departingTime} from ${args.departingAirport} (${args.departingAirportCode})
-                `
-                }
-              ],
-              display: {
-                name: 'showFlights',
-                props: {
-                  summary: args
-                }
-              }
-            })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <BoardingPass summary={args} />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showFlightStatus') {
+          //   aiState.update({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content: `The flight status of ${args.flightCode} is as follows:
+          //       Departing: ${args.departingCity} at ${args.departingTime} from ${args.departingAirport} (${args.departingAirportCode})
+          //       `
+          //       }
+          //     ],
+          //     display: {
+          //       name: 'showFlights',
+          //       props: {
+          //         summary: args
+          //       }
+          //     }
+          //   })
 
-            uiStream.update(
-              <BotCard>
-                <FlightStatus summary={args} />
-              </BotCard>
-            )
-          }
+          //   uiStream.update(
+          //     <BotCard>
+          //       <FlightStatus summary={args} />
+          //     </BotCard>
+          //   )
+          // }
         }
       }
 
@@ -629,7 +623,7 @@ export const AI = createAI<AIState, UIState>({
 
       const createdAt = new Date()
       const userId = session.user.id as string
-      const path = `/chat/${chatId}`
+      const path = `/kc/chat/${chatId}`
       const title = messages[0].content.substring(0, 100)
 
       const chat: Chat = {
@@ -640,6 +634,8 @@ export const AI = createAI<AIState, UIState>({
         messages,
         path
       }
+
+      console.log('submit chat', chat)
 
       await saveChat(chat)
     } else {
