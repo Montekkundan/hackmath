@@ -1,0 +1,48 @@
+---
+title: Latest Articles for you!
+description: Latest Articles.
+issue_number: 1
+---
+
+import { getEntry } from "astro:content";
+import Card from "../../components/Cards/NormalCard/Card.astro"
+import CardHolo from "../../components/Cards/HoloFullArtCard/Card.astro"
+import TipCard from "../../components/Cards/TipCard/Card.astro"
+
+export const components = {
+  Container: props => <div class="flex flex-row-reverse justify-center w-full my-12 flex-wrap lg:flex-nowrap gap-2" {...props} />,
+  HoloText: props => <p class="text-center holographic-text font-display mt-4 text-xl lg:text-4xl" {...props} />
+}
+
+
+export const hackmathteckstack = await getEntry(
+    "cards",
+    "hackmath-techstack",
+);
+
+export const blogteckstack = await getEntry(
+    "cards",
+    "blog-techstack",
+);
+
+
+export const upcoming_changes = await getEntry(
+    "cards",
+    "upcoming-changes",
+);
+
+# {frontmatter.title}
+
+<HoloText>Top 2 recommendations</HoloText>
+
+<Container>
+  <CardHolo markdown={blogteckstack} />
+
+  <Card markdown={hackmathteckstack} />
+</Container>
+
+These are the latest articles which we recommmed you to read!
+
+<More>
+  <TipCard markdown={upcoming_changes} />
+</More>

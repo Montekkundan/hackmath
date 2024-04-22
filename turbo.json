@@ -5,7 +5,17 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "dotEnv": [".env.production.local", ".env.local", ".env.production", ".env"]
+      "env": [
+        "RESEND_API_KEY",
+        "NEXT_PUBLIC_APP_URL"
+      ],
+      "dotEnv": [
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env",
+        "apps/hackmath/.env"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -13,7 +23,13 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "dotEnv": [".env.production.local", ".env.local", ".env.production", ".env"]
+      "dotEnv": [
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env",
+        "apps/hackmath/.env"
+      ]
     }
   }
 }

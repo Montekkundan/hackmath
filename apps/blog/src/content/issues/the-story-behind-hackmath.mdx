@@ -1,0 +1,55 @@
+---
+title: The Story behind HackMath
+description: An Astro theme for publishing content for humans to read.
+issue_number: 1
+layout: "../../layouts/Issue.astro"
+---
+
+import { getEntry } from "astro:content";
+import Empty from "../../components/Empty.astro"
+import ArticleTeaser from "../../components/ArticleTeaser.astro";
+import FancyParagraph from "../../components/Content/FancyParagraph.astro";
+import TitleLink from "../../components/TitleLink.astro";
+
+export const idea = await getEntry(
+  "articles",
+  "what-is-the-idea",
+);
+export const card_intro = await getEntry(
+    "articles",
+    "latest-articles",
+);
+export const how_to_read = await getEntry("articles", "how_to_read");
+
+export const components = {
+  h1: props => <h1 class="col-span-12 text-3xl lg:text-9xl font-display text-center text-balance" {...props} />
+}
+
+# {frontmatter.title}
+
+<ArticleTeaser
+  components={{ h1: props => <TitleLink slug={card_intro.slug} {...props} />}}
+  markdown={card_intro}
+  href={`/articles/${card_intro.slug}`}
+  class="xl:col-span-8 col-span-12"
+  cta="more recommendations"
+  title={card_intro.data.title}
+/>
+
+<ArticleTeaser
+  components={{ h1: props => <TitleLink slug={how_to_read.slug} {...props} />}}
+  markdown={how_to_read}
+  href={`/articles/${how_to_read.slug}`}
+  class="lg:col-span-8 xl:col-span-4 xl:sticky top-10 self-start row-span-2 prose-xl col-span-12"
+  cta="Read more about this"
+  title={how_to_read.data.title}
+/>
+
+<ArticleTeaser
+  components={{ h1: props => <TitleLink slug={idea.slug} {...props} />}}
+  markdown={idea}
+  href={`/articles/${idea.slug}`}
+  class="xl:col-span-8 col-span-12"
+  cta="Read more about the Idea behind HackMath"
+  title={idea.data.title}
+/>

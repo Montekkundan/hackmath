@@ -1,0 +1,68 @@
+---
+name: TechStack
+art: /wave.jpeg
+tagline: Blog
+mark: hot
+type: product
+---
+
+import { getEntry } from "astro:content";
+
+import MarkdownSnippet from "../../components/ArticleTeaser.astro";
+export const hackmathteckstack = await getEntry(
+  "articles",
+  "blog-techstack",
+);
+
+<Card>
+  <ArtSection>
+    <Top>
+      <Name>
+        {frontmatter.name}
+      </Name>
+
+      <Tagline>
+        {frontmatter.tagline}
+      </Tagline>
+
+      <Mark>
+        {frontmatter.mark}
+      </Mark>
+    </Top>
+
+    <Art src={frontmatter.art} />
+
+    <Box>
+      <BoxList>
+        * Astro
+        * Newspaper Style
+      </BoxList>
+    </Box>
+  </ArtSection>
+
+  <Body>
+    This Blog is made in a unique way. The issues are a set of articles which in term tell a story to the reader. Right now you are reading from a `card`.
+  </Body>
+
+  <Tip>
+    Click the button below to know how I created the Blog
+  </Tip>
+
+  <Button href="/cards/blog-techstack">Read More</Button>
+</Card>
+
+<More>
+  # TLDR.
+
+  Techstack changes for HackMath.
+
+  <div class="border p-6">
+    <MarkdownSnippet
+      markdown={hackmathteckstack}
+      href={`/articles/${hackmathteckstack.slug}`}
+      cta="Read More"
+    />
+  </div>
+
+  If you liked it till here press `Read More` 👆 to read the full article.
+</More>

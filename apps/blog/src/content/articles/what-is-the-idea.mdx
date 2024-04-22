@@ -1,0 +1,25 @@
+---
+title: What is the Idea
+description: Introducing the HackMath.
+layout: ../../layouts/Article.astro
+issue_number: 1
+---
+
+import { getEntry } from "astro:content";
+import Asterisk from "../../components/Content/Asterisk.astro"
+
+export const technonomicon = await getEntry(
+  "cards",
+  "technonomicon",
+);
+
+# {frontmatter.title}
+
+<FancyParagraph>
+  It all started with a discord call. Min (the genius) thought of a platform to teach high school students Math using AI. The initial fire was 
+  the Google AI Hackathon.
+</FancyParagraph>
+
+I (Montek) was trusted by Min, to start building this platform. I was suprised to see Min had all the designed plan in a Figma File._createMdxContent
+The design was for a mobile app, I recommended starting with a web based plaform and then later moving to other platforms ( also cause I hate mobile dev).
+

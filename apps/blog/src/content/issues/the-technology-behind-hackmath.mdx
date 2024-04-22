@@ -1,0 +1,56 @@
+---
+title: The Technology behind HackMath
+description: Technology behind HackMath.
+issue_number: 2
+layout: "../../layouts/Issue.astro"
+---
+
+import { getEntry } from "astro:content";
+import ArticleTeaser from "../../components/ArticleTeaser.astro";
+import FancyParagraph from "../../components/Content/FancyParagraph.astro";
+import Empty from "../../components/Empty.astro";
+import TitleLink from "../../components/TitleLink.astro";
+
+export const components = {
+  h1: props => <h1 class="col-span-12 text-3xl lg:text-9xl font-display text-center text-balance" {...props} />
+}
+
+export const techstack = await getEntry(
+    "articles",
+    "the-techstack",
+);
+
+export const blogtechstack = await getEntry(
+    "articles",
+    "blog-techstack",
+);
+
+export const upcoming_changes = await getEntry(
+    "articles",
+    "upcoming-changes",
+);
+
+
+# {frontmatter.title}
+
+<ArticleTeaser
+  markdown={techstack}
+  components={{ h1: props => <TitleLink slug={techstack.slug} {...props} />}}
+  class="lg:col-span-6 prose-xl col-span-12"
+  cta="Read more about Techstack"
+/>
+
+<ArticleTeaser
+  markdown={blogtechstack}
+  components={{ h1: props => <TitleLink slug={blogtechstack.slug} {...props} />}}
+  class="lg:col-span-6 prose-xl col-span-12"
+  cta="Read more about Blog"
+/>
+
+<ArticleTeaser
+  markdown={upcoming_changes}
+  components={{ h1: props => <TitleLink slug={upcoming_changes.slug} {...props} />}}
+  class="lg:col-span-6 prose-xl col-span-12"
+  cta="Read more about Upcoming Changes"
+/>
+

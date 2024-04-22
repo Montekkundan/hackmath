@@ -1,0 +1,40 @@
+---
+name: Upcoming Changes
+tagline: Upcoming Changes for HackMath.
+type: tip
+---
+
+import { getEntry } from "astro:content";
+
+import MarkdownSnippet from "../../components/ArticleTeaser.astro";
+export const upcoming_changes = await getEntry(
+  "articles",
+  "upcoming-changes",
+);
+
+<Card>
+  # {frontmatter.name}
+
+  Learn about the upcoming changes for HackMath.
+  We are always looking to improve the site and make it more user-friendly.
+
+  We will be adding more AI features, and keep improving Dr Ham. so that students get the best experience.
+
+  <Button href="/cards/upcoming-changes">Read more about this.</Button>
+</Card>
+
+<More>
+  # TLDR.
+
+  Techstack changes for HackMath.
+
+  <div class="border p-6">
+    <MarkdownSnippet
+      markdown={upcoming_changes}
+      href={`/articles/${upcoming_changes.slug}`}
+      cta="Read More"
+    />
+  </div>
+
+  If you liked it till here press `Read More` 👆 to read the full article.
+</More>

@@ -1,0 +1,74 @@
+---
+name: TechStack
+tagline: HackMath
+art: /ham.png
+mark: hot
+type: product
+---
+
+import { getEntry } from "astro:content";
+
+import MarkdownSnippet from "../../components/ArticleTeaser.astro";
+export const hackmathteckstack = await getEntry(
+  "articles",
+  "the-techstack",
+);
+
+<Card>
+  <ArtSection>
+    <Top>
+      <Name>
+        {frontmatter.name}
+      </Name>
+
+      <Tagline>
+        {frontmatter.tagline}
+      </Tagline>
+
+      <Mark>
+        {frontmatter.mark}
+      </Mark>
+    </Top>
+
+    <Art src={frontmatter.art} />
+
+    <Box>
+      <BoxList>
+        * Removed Clerk
+        * Next Auth + Auth0
+      </BoxList>
+
+      <BoxList>
+        * Built using Nexjts
+        * Drizzle + Neon DB
+      </BoxList>
+    </Box>
+  </ArtSection>
+
+  <Body>
+    I made lots of changes to the HackMath techstack. I removed Clerk and added Next Auth + Auth0. I first build the site using Nextjs and added Drizzle + Neon DB.
+    Then when we wanted to expand I shifted to a Monorepo which now has our Admin Portal, HackMath website and Blog...
+  </Body>
+
+  <Tip>
+    Click the button below to read more about the changes we made to the HackMath techstack.
+  </Tip>
+
+  <Button href="/cards/hackmath-techstack">Read More</Button>
+</Card>
+
+<More>
+  # TLDR.
+
+  Techstack changes for HackMath.
+
+  <div class="border p-6">
+    <MarkdownSnippet
+      markdown={hackmathteckstack}
+      href={`/articles/${hackmathteckstack.slug}`}
+      cta="Read More"
+    />
+  </div>
+
+  If you liked it till here press `Read More` 👆 to read the full article.
+</More>
