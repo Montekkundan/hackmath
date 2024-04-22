@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import romanize from "../../../utils/romanize";
 
@@ -18,13 +18,13 @@ const IssueContents = await Promise.all(
   allIssues.map((issue: any) => issue.render()),
 );
 
-const arrayRange = (start: number, stop: number, step: number) =>
-  Array.from(
-    { length: (stop - start) / step + 1 },
-    (value, index) => start + index * step,
-  );
+// const arrayRange = (start: number, stop: number, step: number) =>
+//   Array.from(
+//     { length: (stop - start) / step + 1 },
+//     (_value, index) => start + index * step,
+//   );
 
-const pageRange = arrayRange(1, page.lastPage, 1);
+// const pageRange = arrayRange(1, page.lastPage, 1);
 ---
 
 <Layout title={title} frontmatter={null}>

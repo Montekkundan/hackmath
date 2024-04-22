@@ -18,14 +18,14 @@ const issuesCollection = defineCollection({
   }),
 });
 
-const cardsCollection = defineCollection({
-  type: "content",
-  schema: z.object({
-    name: z.string(),
-    tagline: z.string(),
-    art: z.number(),
-  }),
-});
+// const cardsCollection = defineCollection({
+//   type: "content",
+//   schema: z.object({
+//     name: z.string(),
+//     tagline: z.string(),
+//     art: z.number(),
+//   }),
+// });
 // Export a single `collections` object to register your collection(s)
 export const collections = {
   articles: articlesCollection,

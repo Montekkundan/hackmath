@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content } = await entry.render();
 const issue = entry;
 const CardToDisplay = entry.data.type === "tip" ? TipCard : Card;
 ---
