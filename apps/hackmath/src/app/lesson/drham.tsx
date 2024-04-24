@@ -1,23 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { UserRole } from "@/schemas";
-import { User } from "next-auth";
 import Link from "next/link";
 import { Drawer } from "vaul";
 
-type Props = {
-    user: User & {
-        id: number;
-        role: UserRole;
-        isTwoFactorEnabled: boolean;
-        isOAuth: boolean;
-      } | undefined
-}
 
-export function DrHam({
-user,
-}: Props) {
+export function DrHam() {
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
@@ -30,7 +18,7 @@ user,
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
             <div className="max-w-md mx-auto flex flex-row  justify-between">
                 <div className="items-center">
-                    <span className="text-xl font-bold">Hello {user?.name}</span>
+                    <span className="text-xl font-bold">Hello</span>
                 </div>
                 <Drawer.NestedRoot>
                 <Drawer.Trigger className="rounded-md mb-6  bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">

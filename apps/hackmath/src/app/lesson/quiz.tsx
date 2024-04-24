@@ -19,8 +19,6 @@ import { Challenge } from "./challenge";
 import { ResultCard } from "./result-card";
 import { QuestionBubble } from "./question-bubble";
 import { DrHam } from "./drham";
-import { User } from "next-auth";
-import { UserRole } from "@/schemas";
 
 type Props = {
   initialPercentage: number;
@@ -33,12 +31,6 @@ type Props = {
   userSubscription: typeof userSubscription.$inferSelect & {
     isActive: boolean;
   } | null;
-  user: User & {
-    id: number;
-    role: UserRole;
-    isTwoFactorEnabled: boolean;
-    isOAuth: boolean;
-  } | undefined
 };
 
 export const Quiz = ({
@@ -47,7 +39,6 @@ export const Quiz = ({
   initialLessonId,
   initialLessonChallenges,
   userSubscription,
-  user,
 }: Props) => {
   const { open: openHeartsModal } = useHeartsModal();
   const { open: openPracticeModal } = usePracticeModal();
@@ -254,7 +245,7 @@ export const Quiz = ({
         status={status}
         onCheck={onContinue}
       />
-      <DrHam user={user} />
+      <DrHam />
     </>
   );
 };
