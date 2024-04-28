@@ -1,17 +1,56 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardDataStats from "../CardDataStats";
+import db from "@/db/drizzle";
+import UserItem from "../common/UserItem";
 // import ChartOne from "../Charts/ChartOne";
 // import ChartThree from "../Charts/ChartThree";
 // import ChartTwo from "../Charts/ChartTwo";
 // import ChatCard from "../Chat/ChatCard";
 // import TableOne from "../Tables/TableOne";
 // import MapOne from "../Maps/MapOne";
-
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
+interface User {
+  id: number;
+  name: string | null;
+  email: string | null;
+  role: 'ADMIN' | 'USER' | null;
+}
 const Admin: React.FC = () => {
+  const [userList, setUserList] = useState<User[]>([]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const result = await db.select({ id: users.id, name: users.name, email: users.email, role: users.role }).from(users);
+        setUserList(result);
+      } catch (error) {
+        console.error('Failed to fetch users', error);
+      }
+    };
+  
+    fetchUsers();
+  }, []);
+  
+  const handleDeleteUser = async (id: number) => {
+    await db.delete(users).where(eq(users.id, id));
+    setUserList(userList.filter(user => user.id !== id));
+  };
+  
+  const handleSaveUser = async (id: number, newRole: 'ADMIN' | 'USER') => {
+    await db.update(users).set({ role: newRole }).where(eq(users.id, id));
+    const updatedUsers = userList.map(user => user.id === id ? { ...user, role: newRole } : user);
+    setUserList(updatedUsers); // Update the userList state after saving
+  };
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      <div>
+      {userList.map(user => (
+        <UserItem key={user.id} user={user} onDelete={handleDeleteUser} onSave={handleSaveUser} />
+      ))}
+    </div>
+      {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
@@ -96,7 +135,7 @@ const Admin: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-      </div>
+      </div> */}
 
       {/* <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />

@@ -29,6 +29,15 @@ importers:
 
   apps/admin:
     dependencies:
+      '@neondatabase/serverless':
+        specifier: ^0.9.0
+        version: 0.9.1
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      drizzle-orm:
+        specifier: ^0.30.6
+        version: 0.30.9(@neondatabase/serverless@0.9.1)(@types/pg@8.11.5)(@types/react@18.2.79)(pg@8.11.5)(react@18.2.0)
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
@@ -60,6 +69,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.2.25
+      drizzle-kit:
+        specifier: ^0.20.17
+        version: 0.20.17
       eslint:
         specifier: ^8
         version: 8.57.0

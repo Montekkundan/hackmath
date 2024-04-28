@@ -14,7 +14,8 @@
         ".env.local",
         ".env.production",
         ".env",
-        "apps/hackmath/.env"
+        "apps/hackmath/.env",
+        "apps/admin/.env"
       ]
     },
     "lint": {
@@ -28,7 +29,8 @@
         ".env.local",
         ".env.production",
         ".env",
-        "apps/hackmath/.env"
+        "apps/hackmath/.env",
+        "apps/admin/.env"
       ]
     }
   }
