@@ -18,8 +18,8 @@ export default {
         gradient: "animatedgradient 6s ease infinite alternate",
       },
       fontFamily: {
-        serif: ["Basteleur Moonlight", ...defaultTheme.fontFamily.serif],
-        display: ["Basteleur Bold", ...defaultTheme.fontFamily.serif],
+        serif: ["Inter", ...defaultTheme.fontFamily.serif],
+        display: ["Inter", ...defaultTheme.fontFamily.serif],
         lithops: ["Lithops", "Young Serif", ...defaultTheme.fontFamily.serif],
       },
     },
