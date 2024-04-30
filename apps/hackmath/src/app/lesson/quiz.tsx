@@ -245,7 +245,7 @@ export const Quiz = ({
         status={status}
         onCheck={onContinue}
       />
-      <DrHam />
+      <DrHam question={title} />
     </>
   );
 };

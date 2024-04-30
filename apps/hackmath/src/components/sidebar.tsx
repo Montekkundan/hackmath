@@ -31,10 +31,15 @@ export const Sidebar = ({ className }: Props) => {
           href="/learn"
           iconSrc="/images/learn.svg"
         />
-        <SidebarItem 
+        {/* <SidebarItem 
           label="Challenges " 
           href="/challenges"
           iconSrc="/images/challenges.svg"
+        /> */}
+        <SidebarItem 
+          label="Leaderboard" 
+          href="/leaderboard"
+          iconSrc="/images/leaderboard.svg"
         />
         <SidebarItem 
           label="dr ham" 
@@ -46,11 +51,6 @@ export const Sidebar = ({ className }: Props) => {
           href="/analytics"
           iconSrc="/images/analytics.svg"
         />
-        {/* <SidebarItem 
-          label="Leaderboard" 
-          href="/leaderboard"
-          iconSrc="/images/leaderboard.svg"
-        /> */}
         <SidebarItem 
           label="shop"  
           href="/shop"

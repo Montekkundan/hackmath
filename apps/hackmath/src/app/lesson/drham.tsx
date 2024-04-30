@@ -3,9 +3,13 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Drawer } from "vaul";
+import QuestionChat from "./question-chat";
 
+interface Props {
+  question: string;
+}
 
-export function DrHam() {
+export function DrHam({ question }: Props) {
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
@@ -21,9 +25,9 @@ export function DrHam() {
                     <span className="text-xl font-bold">Hello</span>
                 </div>
                 <Drawer.NestedRoot>
-                <Drawer.Trigger className="rounded-md mb-6  bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+                {/* <Drawer.Trigger className="rounded-md mb-6  bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
                   Upgrade
-                </Drawer.Trigger>
+                </Drawer.Trigger> */}
                 <Drawer.Portal>
                   <Drawer.Overlay className="fixed inset-0 bg-black/40" />
                   <Drawer.Content className="bg-gray-100 flex flex-col rounded-t-[10px] h-full mt-24 max-h-[94%] fixed bottom-0 left-0 right-0">
@@ -91,7 +95,7 @@ export function DrHam() {
             </div>
             <div className="max-w-md mx-auto">
               <Drawer.Title className="font-medium mb-4">
-                Chat page
+                <QuestionChat question={question}/>
               </Drawer.Title>
             </div>
           </div>
