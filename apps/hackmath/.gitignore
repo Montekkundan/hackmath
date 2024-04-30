@@ -39,3 +39,4 @@ next-env.d.ts
 _cacache
 _logs
 _update-notifier*
+.vercel

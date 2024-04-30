@@ -220,3 +220,19 @@ export const userSubscriptionRelations = relations(userSubscription, ({ one }) =
     references: [users.id],
   }),
 }));
+
+export const chats = pgTable("chats", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  title: text("title").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  messages: text("messages").notNull(),
+  path: text("path").notNull(),
+});
+
+export const chatsRelations = relations(chats, ({ one }) => ({
+  user: one(users, {
+    fields: [chats.userId],
+    references: [users.id],
+  }),
+}));
