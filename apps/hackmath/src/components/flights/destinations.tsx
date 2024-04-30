@@ -9,8 +9,8 @@ export const Destinations = ({ destinations }: { destinations: string[] }) => {
   return (
     <div className="grid gap-4">
       <p>
-        Here is a list of holiday destinations based on the books you have read.
-        Choose one to proceed to booking a flight.
+        Here is a list of math topics
+        Choose one to proceed with.
       </p>
       <div className="flex flex-col sm:flex-row items-start gap-2">
         {destinations.map(destination => (
@@ -19,7 +19,7 @@ export const Destinations = ({ destinations }: { destinations: string[] }) => {
             key={destination}
             onClick={async () => {
               const response = await submitUserMessage(
-                `I would like to fly to ${destination}, proceed to choose flights.`
+                `I would like a quesiton on ${destination}, ask me a question about this.`
               )
               setMessages((currentMessages: any[]) => [
                 ...currentMessages,

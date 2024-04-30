@@ -38,14 +38,14 @@ export function ChatPanel({
 
   const exampleMessages = [
     {
-      heading: 'List flights flying from',
-      subheading: 'San Francisco to Rome today',
-      message: `List flights flying from San Francisco to Rome today`
+      heading: 'List easy math topics',
+      subheading: 'easy',
+      message: `List easy math topics `
     },
     {
-      heading: 'What is the status',
-      subheading: 'of flight BA142?',
-      message: 'What is the status of flight BA142?'
+      heading: 'List hard math topics',
+      subheading: 'hard',
+      message: `List hard math topics `
     }
   ]
 
@@ -123,11 +123,12 @@ export function ChatPanel({
                     <IconShare className="mr-2" />
                     Share
                   </Button>
+                  {/* TODO FIX share chat  */}
                   <ChatShareDialog
                     open={shareDialogOpen}
                     onOpenChange={setShareDialogOpen}
                     onCopy={() => setShareDialogOpen(false)}
-                    shareChat={shareChat}
+                    shareChat={''}
                     chat={{
                       id,
                       title,

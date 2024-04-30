@@ -165,7 +165,7 @@ async function submitUserMessage(content: string) {
         model: google.generativeAI('models/gemini-1.0-pro-001'),
         temperature: 0,
         tools: {
-          listDestinations: {
+          listQuestions: {
             description: 'List of math topics, max 5.',
             parameters: z.object({
               destinations: z.array(
@@ -192,9 +192,9 @@ async function submitUserMessage(content: string) {
                 )
             })
           },
-          showSeatPicker: {
+          showQuestion: {
             description:
-              'Show the UI to choose or change seat for the selected flight.',
+              'Show the UI to choose or change option for the question.',
             parameters: z.object({
               departingCity: z.string(),
               arrivalCity: z.string(),
@@ -249,10 +249,13 @@ async function submitUserMessage(content: string) {
   
       The date today is ${format(new Date(), 'd LLLL, yyyy')}.
 
-      
       Here's the flow: 
-      1. List math concepts based on the student's interest.
-      2. Display math problems related to the chosen concept.
+        1. List math questions based on math topics eg algebra, calculus.
+        2. List math quesitons based that.
+        3. Choose a question.
+        4. Choose a answer.
+        5. Choose hotel
+        7. Show corrrect answer.
       `,
         messages: [...history]
       })
@@ -283,9 +286,9 @@ async function submitUserMessage(content: string) {
         } else if (type === 'tool-call') {
           const { toolName, args } = delta
 
-          if (toolName === 'listDestinations') {
+          if (toolName === 'listQuestions') {
             const { destinations } = args
-
+            console.log('destinations', destinations)
             uiStream.update(
               <BotCard>
                 <Destinations destinations={destinations} />
@@ -300,9 +303,9 @@ async function submitUserMessage(content: string) {
                 {
                   id: nanoid(),
                   role: 'assistant',
-                  content: `Here's a list of holiday destinations based on the books you've read. Choose one to proceed to booking a flight. \n\n ${args.destinations.join(', ')}.`,
+                  content: `Here's a list of math topics based on grade 8. Choose one to proceed with a question. \n\n ${args.destinations.join(', ')}.`,
                   display: {
-                    name: 'listDestinations',
+                    name: 'listQuestions',
                     props: {
                       destinations
                     }
@@ -337,27 +340,28 @@ async function submitUserMessage(content: string) {
           //       <ListFlights summary={args} />
           //     </BotCard>
           //   )
-          // } else if (toolName === 'showSeatPicker') {
-          //   aiState.done({
-          //     ...aiState.get(),
-          //     interactions: [],
-          //     messages: [
-          //       ...aiState.get().messages,
-          //       {
-          //         id: nanoid(),
-          //         role: 'assistant',
-          //         content:
-          //           "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
-          //         display: {
-          //           name: 'showSeatPicker',
-          //           props: {
-          //             summary: args
-          //           }
-          //         }
-          //       }
-          //     ]
-          //   })
-
+          // } 
+          else if (toolName === 'showQuestion') {
+            aiState.done({
+              ...aiState.get(),
+              interactions: [],
+              messages: [
+                ...aiState.get().messages,
+                {
+                  id: nanoid(),
+                  role: 'assistant',
+                  content:
+                    "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
+                  display: {
+                    name: 'showQuestion',
+                    props: {
+                      summary: args
+                    }
+                  }
+                }
+              ]
+            })
+          }
           //   uiStream.update(
           //     <BotCard>
           //       <SelectSeats summary={args} />
@@ -655,7 +659,7 @@ export const getUIStateFromAIState = (aiState: Chat) => {
             <BotCard>
               <ListFlights summary={message.display.props.summary} />
             </BotCard>
-          ) : message.display?.name === 'showSeatPicker' ? (
+          ) : message.display?.name === 'showQuestion' ? (
             <BotCard>
               <SelectSeats summary={message.display.props.summary} />
             </BotCard>
@@ -671,7 +675,7 @@ export const getUIStateFromAIState = (aiState: Chat) => {
             <BotCard>
               <BoardingPass summary={message.display.props.summary} />
             </BotCard>
-          ) : message.display?.name === 'listDestinations' ? (
+          ) : message.display?.name === 'listQuestions' ? (
             <BotCard>
               <Destinations destinations={message.display.props.destinations} />
             </BotCard>

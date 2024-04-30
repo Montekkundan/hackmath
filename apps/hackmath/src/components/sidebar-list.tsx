@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { clearChats, getChats } from '@/app/kc/actions'
 import { ClearHistory } from '@/components/clear-history'
 import { SidebarItems } from '@/components/sidebar-items'
