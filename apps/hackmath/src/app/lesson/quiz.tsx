@@ -245,7 +245,9 @@ export const Quiz = ({
         status={status}
         onCheck={onContinue}
       />
+      <div className="absolute bottom-28 left-11 md:bottom-44 md:left-80 xl:left-1/4">
       <DrHam question={title} />
+      </div>     
     </>
   );
 };
