@@ -13,7 +13,7 @@ export function DrHam({ question }: Props) {
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
-        <Button>Dr. Ham</Button>
+        <Button variant="super">Dr. Ham</Button>
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
@@ -22,7 +22,7 @@ export function DrHam({ question }: Props) {
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
             <div className="max-w-md mx-auto flex flex-row  justify-between">
                 <div className="items-center">
-                    <span className="text-xl font-bold">Hello</span>
+                    {/* <span className="text-xl font-bold">Hello</span> */}
                 </div>
                 <Drawer.NestedRoot>
                 {/* <Drawer.Trigger className="rounded-md mb-6  bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
