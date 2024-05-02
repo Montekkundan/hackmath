@@ -20,26 +20,26 @@ export const products = [
     title: "Chat",
     link: "/chat",
     thumbnail:
-      "/product/chat.png",
+      "/product/drham.png",
   },
   {
     title: "leaderboard",
     link: "/leaderboard",
     thumbnail:
-      "/product/leaderboard.png",
+      "/product/warmup.png",
   },
 
   {
     title: "Quests",
     link: "/quests",
     thumbnail:
-      "/product/quests.png",
+      "/product/analytics.png",
   },
   {
     title: "Shop",
     link: "/shop",
     thumbnail:
-      "/product/shop.png",
+      "/product/drham2.png",
   },
   // -----------------------------------------
 
@@ -47,7 +47,7 @@ export const products = [
     title: "leaderboard",
     link: "/leaderboard",
     thumbnail:
-      "/product/leaderboard.png",
+      "/product/application.png",
   },
   {
     title: "Learn",
@@ -59,19 +59,19 @@ export const products = [
     title: "Quests",
     link: "/quests",
     thumbnail:
-      "/product/quests.png",
+      "/product/analytics.png",
   },
   {
     title: "Shop",
     link: "/shop",
     thumbnail:
-      "/product/shop.png",
+      "/product/lesson.png",
   },
   {
     title: "Chat",
     link: "/chat",
     thumbnail:
-      "/product/chat.png",
+      "/product/drham.png",
   },
     // -----------------------------------------
 
@@ -79,25 +79,25 @@ export const products = [
     title: "leaderboard",
     link: "/leaderboard",
     thumbnail:
-      "/product/leaderboard.png",
+      "/product/application.png",
   },
   {
     title: "Shop",
     link: "/shop",
     thumbnail:
-      "/product/shop.png",
+      "/product/lesson.png",
   },
   {
     title: "Quests",
     link: "/quests",
     thumbnail:
-      "/product/quests.png",
+      "/product/analytics.png",
   },
   {
     title: "Chat",
     link: "/chat",
     thumbnail:
-      "/product/chat.png",
+      "/product/drham2.png",
   },
   {
     title: "Learn",

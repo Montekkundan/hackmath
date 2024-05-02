@@ -20,6 +20,10 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+  if (nextUrl.pathname === "/blog") {
+    return Response.redirect("https://blog.hackmath.org");
+  }
+
   if (isApiAuthRoute) {
     return null;
   }

@@ -27,7 +27,7 @@ import { PurchaseTickets } from '@/components/flights/purchase-ticket'
 import { CheckIcon, SpinnerIcon } from '@/components/ui/icons'
 import { format } from 'date-fns'
 import { experimental_streamText } from 'ai'
-// import { google } from 'ai/google'
+import { google } from 'ai/google'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { z } from 'zod'
 import { ListHotels } from '@/components/hotels/list-hotels'
@@ -159,321 +159,321 @@ async function submitUserMessage(content: string) {
   const messageStream = createStreamableUI(null)
   const uiStream = createStreamableUI()
 
-  // ;(async () => {
-  //   try {
-  //     const result = await experimental_streamText({
-  //       model: google.generativeAI('models/gemini-1.0-pro-001'),
-  //       temperature: 0,
-  //       tools: {
-  //         listQuestions: {
-  //           description: 'List of math topics, max 5.',
-  //           parameters: z.object({
-  //             destinations: z.array(
-  //               z
-  //                 .string()
-  //                 .describe(
-  //                   'List mathematical topic for the student to choose. eg algebra calculus'
-  //                 )
-  //             )
-  //           })
-  //         },
-  //         showFlights: {
-  //           description:
-  //             "List available flights in the UI. List 3 that match user's query.",
-  //           parameters: z.object({
-  //             departingCity: z.string(),
-  //             arrivalCity: z.string(),
-  //             departingAirport: z.string().describe('Departing airport code'),
-  //             arrivalAirport: z.string().describe('Arrival airport code'),
-  //             date: z
-  //               .string()
-  //               .describe(
-  //                 "Date of the user's flight, example format: 6 April, 1998"
-  //               )
-  //           })
-  //         },
-  //         showQuestion: {
-  //           description:
-  //             'Show the UI to choose or change option for the question.',
-  //           parameters: z.object({
-  //             departingCity: z.string(),
-  //             arrivalCity: z.string(),
-  //             flightCode: z.string(),
-  //             date: z.string()
-  //           })
-  //         },
-  //         showHotels: {
-  //           description: 'Show the UI to choose a hotel for the trip.',
-  //           parameters: z.object({})
-  //         },
-  //         checkoutBooking: {
-  //           description:
-  //             'Show the UI to purchase/checkout a flight and hotel booking.',
-  //           parameters: z.object({})
-  //         },
-  //         showBoardingPass: {
-  //           description: "Show user's imaginary boarding pass.",
-  //           parameters: z.object({
-  //             airline: z.string(),
-  //             arrival: z.string(),
-  //             departure: z.string(),
-  //             departureTime: z.string(),
-  //             arrivalTime: z.string(),
-  //             price: z.number(),
-  //             seat: z.string(),
-  //             date: z
-  //               .string()
-  //               .describe('Date of the flight, example format: 6 April, 1998'),
-  //             gate: z.string()
-  //           })
-  //         },
-  //         showFlightStatus: {
-  //           description:
-  //             'Get the current status of imaginary flight by flight number and date.',
-  //           parameters: z.object({
-  //             flightCode: z.string(),
-  //             date: z.string(),
-  //             departingCity: z.string(),
-  //             departingAirport: z.string(),
-  //             departingAirportCode: z.string(),
-  //             departingTime: z.string(),
-  //             arrivalCity: z.string(),
-  //             arrivalAirport: z.string(),
-  //             arrivalAirportCode: z.string(),
-  //             arrivalTime: z.string()
-  //           })
-  //         }
-  //       },
-  //       system: `\
-  //       You are Dr. Ham, a virtual math teacher assistant. Today, you will help the student navigate through various math concepts and solve problems effectively.
+  ;(async () => {
+    try {
+      const result = await experimental_streamText({
+        model: google.generativeAI('models/gemini-1.0-pro-001'),
+        temperature: 0,
+        tools: {
+          listQuestions: {
+            description: 'List of math topics, max 5.',
+            parameters: z.object({
+              destinations: z.array(
+                z
+                  .string()
+                  .describe(
+                    'List mathematical topic for the student to choose. eg algebra calculus'
+                  )
+              )
+            })
+          },
+          showFlights: {
+            description:
+              "List available flights in the UI. List 3 that match user's query.",
+            parameters: z.object({
+              departingCity: z.string(),
+              arrivalCity: z.string(),
+              departingAirport: z.string().describe('Departing airport code'),
+              arrivalAirport: z.string().describe('Arrival airport code'),
+              date: z
+                .string()
+                .describe(
+                  "Date of the user's flight, example format: 6 April, 1998"
+                )
+            })
+          },
+          showQuestion: {
+            description:
+              'Show the UI to choose or change option for the question.',
+            parameters: z.object({
+              departingCity: z.string(),
+              arrivalCity: z.string(),
+              flightCode: z.string(),
+              date: z.string()
+            })
+          },
+          showHotels: {
+            description: 'Show the UI to choose a hotel for the trip.',
+            parameters: z.object({})
+          },
+          checkoutBooking: {
+            description:
+              'Show the UI to purchase/checkout a flight and hotel booking.',
+            parameters: z.object({})
+          },
+          showBoardingPass: {
+            description: "Show user's imaginary boarding pass.",
+            parameters: z.object({
+              airline: z.string(),
+              arrival: z.string(),
+              departure: z.string(),
+              departureTime: z.string(),
+              arrivalTime: z.string(),
+              price: z.number(),
+              seat: z.string(),
+              date: z
+                .string()
+                .describe('Date of the flight, example format: 6 April, 1998'),
+              gate: z.string()
+            })
+          },
+          showFlightStatus: {
+            description:
+              'Get the current status of imaginary flight by flight number and date.',
+            parameters: z.object({
+              flightCode: z.string(),
+              date: z.string(),
+              departingCity: z.string(),
+              departingAirport: z.string(),
+              departingAirportCode: z.string(),
+              departingTime: z.string(),
+              arrivalCity: z.string(),
+              arrivalAirport: z.string(),
+              arrivalAirportCode: z.string(),
+              arrivalTime: z.string()
+            })
+          }
+        },
+        system: `\
+        You are Dr. Ham, a virtual math teacher assistant. Today, you will help the student navigate through various math concepts and solve problems effectively.
   
-  //     The date today is ${format(new Date(), 'd LLLL, yyyy')}.
+      The date today is ${format(new Date(), 'd LLLL, yyyy')}.
 
-  //     Here's the flow: 
-  //       1. List math questions based on math topics eg algebra, calculus.
-  //       2. List math quesitons based that.
-  //       3. Choose a question.
-  //       4. Choose a answer.
-  //       5. Choose hotel
-  //       7. Show corrrect answer.
-  //     `,
-  //       messages: [...history]
-  //     })
+      Here's the flow: 
+        1. List math questions based on math topics eg algebra, calculus.
+        2. List math quesitons based that.
+        3. Choose a question.
+        4. Choose a answer.
+        5. Choose hotel
+        7. Show corrrect answer.
+      `,
+        messages: [...history]
+      })
 
-  //     let textContent = ''
-  //     spinnerStream.done(null)
+      let textContent = ''
+      spinnerStream.done(null)
 
-  //     for await (const delta of result.fullStream) {
-  //       const { type } = delta
+      for await (const delta of result.fullStream) {
+        const { type } = delta
 
-  //       if (type === 'text-delta') {
-  //         const { textDelta } = delta
+        if (type === 'text-delta') {
+          const { textDelta } = delta
 
-  //         textContent += textDelta
-  //         messageStream.update(<BotMessage content={textContent} />)
+          textContent += textDelta
+          messageStream.update(<BotMessage content={textContent} />)
 
-  //         aiState.update({
-  //           ...aiState.get(),
-  //           messages: [
-  //             ...aiState.get().messages,
-  //             {
-  //               id: nanoid(),
-  //               role: 'assistant',
-  //               content: textContent
-  //             }
-  //           ]
-  //         })
-  //       } else if (type === 'tool-call') {
-  //         const { toolName, args } = delta
+          aiState.update({
+            ...aiState.get(),
+            messages: [
+              ...aiState.get().messages,
+              {
+                id: nanoid(),
+                role: 'assistant',
+                content: textContent
+              }
+            ]
+          })
+        } else if (type === 'tool-call') {
+          const { toolName, args } = delta
 
-  //         if (toolName === 'listQuestions') {
-  //           const { destinations } = args
-  //           console.log('destinations', destinations)
-  //           uiStream.update(
-  //             <BotCard>
-  //               <Destinations destinations={destinations} />
-  //             </BotCard>
-  //           )
+          if (toolName === 'listQuestions') {
+            const { destinations } = args
+            console.log('destinations', destinations)
+            uiStream.update(
+              <BotCard>
+                <Destinations destinations={destinations} />
+              </BotCard>
+            )
 
-  //           aiState.done({
-  //             ...aiState.get(),
-  //             interactions: [],
-  //             messages: [
-  //               ...aiState.get().messages,
-  //               {
-  //                 id: nanoid(),
-  //                 role: 'assistant',
-  //                 content: `Here's a list of math topics based on grade 8. Choose one to proceed with a question. \n\n ${args.destinations.join(', ')}.`,
-  //                 display: {
-  //                   name: 'listQuestions',
-  //                   props: {
-  //                     destinations
-  //                   }
-  //                 }
-  //               }
-  //             ]
-  //           })
-  //         } 
-  //         // else if (toolName === 'showFlights') {
-  //         //   aiState.done({
-  //         //     ...aiState.get(),
-  //         //     interactions: [],
-  //         //     messages: [
-  //         //       ...aiState.get().messages,
-  //         //       {
-  //         //         id: nanoid(),
-  //         //         role: 'assistant',
-  //         //         content:
-  //         //           "Here's a list of flights for you. Choose one and we can proceed to pick a seat.",
-  //         //         display: {
-  //         //           name: 'showFlights',
-  //         //           props: {
-  //         //             summary: args
-  //         //           }
-  //         //         }
-  //         //       }
-  //         //     ]
-  //         //   })
+            aiState.done({
+              ...aiState.get(),
+              interactions: [],
+              messages: [
+                ...aiState.get().messages,
+                {
+                  id: nanoid(),
+                  role: 'assistant',
+                  content: `Here's a list of math topics based on grade 8. Choose one to proceed with a question. \n\n ${args.destinations.join(', ')}.`,
+                  display: {
+                    name: 'listQuestions',
+                    props: {
+                      destinations
+                    }
+                  }
+                }
+              ]
+            })
+          } 
+          // else if (toolName === 'showFlights') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's a list of flights for you. Choose one and we can proceed to pick a seat.",
+          //         display: {
+          //           name: 'showFlights',
+          //           props: {
+          //             summary: args
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   })
 
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <ListFlights summary={args} />
-  //         //     </BotCard>
-  //         //   )
-  //         // } 
-  //         else if (toolName === 'showQuestion') {
-  //           aiState.done({
-  //             ...aiState.get(),
-  //             interactions: [],
-  //             messages: [
-  //               ...aiState.get().messages,
-  //               {
-  //                 id: nanoid(),
-  //                 role: 'assistant',
-  //                 content:
-  //                   "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
-  //                 display: {
-  //                   name: 'showQuestion',
-  //                   props: {
-  //                     summary: args
-  //                   }
-  //                 }
-  //               }
-  //             ]
-  //           })
-  //         }
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <SelectSeats summary={args} />
-  //         //     </BotCard>
-  //         //   )
-  //         // } else if (toolName === 'showHotels') {
-  //         //   aiState.done({
-  //         //     ...aiState.get(),
-  //         //     interactions: [],
-  //         //     messages: [
-  //         //       ...aiState.get().messages,
-  //         //       {
-  //         //         id: nanoid(),
-  //         //         role: 'assistant',
-  //         //         content:
-  //         //           "Here's a list of hotels for you to choose from. Select one to proceed to payment.",
-  //         //         display: {
-  //         //           name: 'showHotels',
-  //         //           props: {}
-  //         //         }
-  //         //       }
-  //         //     ]
-  //         //   })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <ListFlights summary={args} />
+          //     </BotCard>
+          //   )
+          // } 
+          else if (toolName === 'showQuestion') {
+            aiState.done({
+              ...aiState.get(),
+              interactions: [],
+              messages: [
+                ...aiState.get().messages,
+                {
+                  id: nanoid(),
+                  role: 'assistant',
+                  content:
+                    "Here's a list of available seats for you to choose from. Select one to proceed to payment.",
+                  display: {
+                    name: 'showQuestion',
+                    props: {
+                      summary: args
+                    }
+                  }
+                }
+              ]
+            })
+          }
+          //   uiStream.update(
+          //     <BotCard>
+          //       <SelectSeats summary={args} />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showHotels') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's a list of hotels for you to choose from. Select one to proceed to payment.",
+          //         display: {
+          //           name: 'showHotels',
+          //           props: {}
+          //         }
+          //       }
+          //     ]
+          //   })
 
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <ListHotels />
-  //         //     </BotCard>
-  //         //   )
-  //         // } else if (toolName === 'checkoutBooking') {
-  //         //   aiState.done({
-  //         //     ...aiState.get(),
-  //         //     interactions: []
-  //         //   })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <ListHotels />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'checkoutBooking') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: []
+          //   })
 
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <PurchaseTickets />
-  //         //     </BotCard>
-  //         //   )
-  //         // } else if (toolName === 'showBoardingPass') {
-  //         //   aiState.done({
-  //         //     ...aiState.get(),
-  //         //     interactions: [],
-  //         //     messages: [
-  //         //       ...aiState.get().messages,
-  //         //       {
-  //         //         id: nanoid(),
-  //         //         role: 'assistant',
-  //         //         content:
-  //         //           "Here's your boarding pass. Please have it ready for your flight.",
-  //         //         display: {
-  //         //           name: 'showBoardingPass',
-  //         //           props: {
-  //         //             summary: args
-  //         //           }
-  //         //         }
-  //         //       }
-  //         //     ]
-  //         //   })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <PurchaseTickets />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showBoardingPass') {
+          //   aiState.done({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content:
+          //           "Here's your boarding pass. Please have it ready for your flight.",
+          //         display: {
+          //           name: 'showBoardingPass',
+          //           props: {
+          //             summary: args
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   })
 
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <BoardingPass summary={args} />
-  //         //     </BotCard>
-  //         //   )
-  //         // } else if (toolName === 'showFlightStatus') {
-  //         //   aiState.update({
-  //         //     ...aiState.get(),
-  //         //     interactions: [],
-  //         //     messages: [
-  //         //       ...aiState.get().messages,
-  //         //       {
-  //         //         id: nanoid(),
-  //         //         role: 'assistant',
-  //         //         content: `The flight status of ${args.flightCode} is as follows:
-  //         //       Departing: ${args.departingCity} at ${args.departingTime} from ${args.departingAirport} (${args.departingAirportCode})
-  //         //       `
-  //         //       }
-  //         //     ],
-  //         //     display: {
-  //         //       name: 'showFlights',
-  //         //       props: {
-  //         //         summary: args
-  //         //       }
-  //         //     }
-  //         //   })
+          //   uiStream.update(
+          //     <BotCard>
+          //       <BoardingPass summary={args} />
+          //     </BotCard>
+          //   )
+          // } else if (toolName === 'showFlightStatus') {
+          //   aiState.update({
+          //     ...aiState.get(),
+          //     interactions: [],
+          //     messages: [
+          //       ...aiState.get().messages,
+          //       {
+          //         id: nanoid(),
+          //         role: 'assistant',
+          //         content: `The flight status of ${args.flightCode} is as follows:
+          //       Departing: ${args.departingCity} at ${args.departingTime} from ${args.departingAirport} (${args.departingAirportCode})
+          //       `
+          //       }
+          //     ],
+          //     display: {
+          //       name: 'showFlights',
+          //       props: {
+          //         summary: args
+          //       }
+          //     }
+          //   })
 
-  //         //   uiStream.update(
-  //         //     <BotCard>
-  //         //       <FlightStatus summary={args} />
-  //         //     </BotCard>
-  //         //   )
-  //         // }
-  //       }
-  //     }
+          //   uiStream.update(
+          //     <BotCard>
+          //       <FlightStatus summary={args} />
+          //     </BotCard>
+          //   )
+          // }
+        }
+      }
 
-  //     uiStream.done()
-  //     textStream.done()
-  //     messageStream.done()
-  //   } catch (e) {
-  //     console.error(e)
+      uiStream.done()
+      textStream.done()
+      messageStream.done()
+    } catch (e) {
+      console.error(e)
 
-  //     const error = new Error(
-  //       'The AI got rate limited, please try again later.'
-  //     )
-  //     uiStream.error(error)
-  //     textStream.error(error)
-  //     messageStream.error(error)
-  //     aiState.done()
-  //   }
-  // })()
+      const error = new Error(
+        'The AI got rate limited, please try again later.'
+      )
+      uiStream.error(error)
+      textStream.error(error)
+      messageStream.error(error)
+      aiState.done()
+    }
+  })()
 
   return {
     id: nanoid(),
