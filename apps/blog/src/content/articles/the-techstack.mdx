@@ -7,29 +7,38 @@ issue_number: 2
 
 # {frontmatter.title}
 
-Issues are at their core a collection of things. These can be `articles` links to other parts of the web. Images, Data Visualizations and much more.
+1. Creating a user-friendly platform that makes advanced AI accessible to a broader range of educators.
+2. Successfully integrating Gemini AI APIs to provide a seamless experience.
+3. Developing a responsive and interactive user interface that enhances the user experience.
 
-They are meant to tie things together in a consumable package.
+Here is how it works:
+**HackMath** was built by two students. Montek, full-time computer information system student and full-time full-stack developer with proficiency in AI. Min, Business Data Analytics student and UI/UX designer. 
 
-If you are making a course, the course could be made of `issues`, which represent topics.
+**HackMath** design by HackMath is created through a typical, albeit slightly rushed design process. We conducted market research, created user personas, decided user flow, designed high fidelity prototypes.
 
-The `issues` bring together many lessons into `articles`.
+We started with a basic [Nextjs app](https://github.com/Montekkundan/hackmath-test), but as we were implementing more features as ideas, we wanted to have a structured application. First we thought to start with nx, but we chose [turborepo](https://github.com/Montekkundan/hackmath) to hold all our projects (blog, hackmath, admin). 
 
-There are components made for rendering articles in an issue. Like the `<MarkdownSnippet/>` component.
-This component is used when you want to render the article directly, instead of just linking to it, or cutting an excerpt.
+Hackmath website is build using nextjs 14 app router, tailwind, and uses drizzle orm to connect with Neon db. It uses vercel ai sdk to use google gemini api for chat as well as generative ai.
 
-```mdx
-import { getEntry } from "astro:content";
-import ArticleTeaser from "../../components/ArticleTeaser.astro";
-export const article = await getEntry(
-    "articles",
-    "article",
-);
-<ArticleTeaser
-    markdown={article}
-    components={{    
-        {/* Components to override or add */}
-    }}
-    cta="Read more about getting started"    
-/>
-```
+Dr Ham, which is the AI that helps students with Math, is build in 2 ways, the basic version and the premium version. Both version use the Gemini Pro model but the premium one has generative ui capabilities. 
+For switching between basic and premium version, we added stripe to manage that.
+
+The authentication is build using next-auth. We started with clerk authentication, but later created our own custom system cause we need roles ( user, teacher, parent, organisation) based on future plans.
+The system offers two factor authentication, settings to change password, a forgot password system is implemented to.
+We are using Resent API to send email's to user for all authentication related functions.
+
+We are using [Neon db](https://neon.tech) for our free database. Drizzle ORM for connection.
+
+Our [blog](https://blog.hackmath.org) is created using [Astro](https://astro.build). We first had our blog in our hackmath website using Notion Api, but later decided to shift to a proper website. Why Astro? Because we think its best for creating blog like websites.
+
+All the color scheme and web design can be viewed in our public [Figma file](https://www.figma.com/file/s8L3Tktpd5ImhwqTVN2FYv/Gemini-Hack--HackMath?type=design&node-id=0-1&mode=design&t=kyO3kwzKKWgHdAKX-0)
+
+# Challenges we ran into
+
+The first challenge was which database to use as planetscale removed their free tier. We found out Neon db, and instead of using prisma, we are using Drizzle as we found it better.
+
+Using Turborepo for the entire project was a challenging because it used quite the resources and building the project every time took a lot of time. Still we feel turborepo is a good choice as we will have lots of same components that we will add in the future + it has build caching.
+
+Vercel ai sdk for generative ui was problematic as the gemini vercel example uses 3.0.17 version of the ai package to demonstrate generative ui. We are getting ` Package path ./google is not exported from package` error which is [documented in the package repo](https://github.com/vercel/ai/issues/1450)
+
+Building the blog was easy but as we are using pnpm, there were build issues on vercel initially. We fixed it! 🚀
