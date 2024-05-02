@@ -9,6 +9,7 @@ import { currentUser, currentUserData } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 
 import Charts from "./_components/charts"
+import { Progress } from "@/components/ui/progress"
 const Analytics = async () => {
   const user = await currentUser()
   const userData = await currentUserData()
@@ -58,17 +59,35 @@ const Analytics = async () => {
             </CardHeader>
             <CardContent className="h-3/4">
               <div className="flex flex-col mt-4 h-2/4 justify-between">
-                <div className="flex flex-row justify-between">
-                  <div className="text-2xl font-bold">Functions</div>
-                  <p className="text-xs text-muted-foreground">Beginner</p>
+                <div className="flex flex-col justify-between">
+                  <div className="flex flex-row justify-between pb-4 items-center">
+                    <div className="text-2xl font-bold">
+                      Functions {""}
+                      <span >5000</span>
+                      </div>
+                    <p className="text-xs text-muted-foreground">Beginner</p>
+                  </div>
+                  <Progress value={80} className="w-[60%]"  color="bg-[#0284c7]" />
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div className="text-2xl font-bold">Functions</div>
-                  <p className="text-xs text-muted-foreground">Intermediate</p>
+                <div className="flex flex-col justify-between">
+                  <div className="flex flex-row justify-between pb-4 pt-6 items-center">
+                    <div className="text-2xl font-bold">
+                      Linear Algebra {""}
+                      <span>6000</span>
+                      </div>
+                    <p className="text-xs text-muted-foreground">Intermediate</p>
+                  </div>
+                  <Progress value={30} className="w-[60%]" color="bg-green-700" />
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div className="text-2xl font-bold">Functions</div>
-                  <p className="text-xs text-muted-foreground">Advanced</p>
+                <div className="flex flex-col justify-between">
+                  <div className="flex flex-row justify-between pb-4 pt-6 items-center">
+                    <div className="text-2xl font-bold">
+                      Geometry {""}
+                      <span>8000</span>
+                      </div>
+                    <p className="text-xs text-muted-foreground">Advanced</p>
+                  </div>
+                  <Progress value={60} className="w-[60%]" color="bg-red-500" />
                 </div>
               </div>
             </CardContent>

@@ -1,6 +1,5 @@
 "use client"
 import Image from "next/image";
-import { Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
@@ -9,6 +8,7 @@ const MediaQuery = dynamic(() => import('react-responsive'), {
 })
 import { HeroParallaxHome } from "./parallax";
 import { HeroTabs } from "./hero-tabs";
+import { HoverCards } from "./hover-cards";
 
 export default function Home() {
 
@@ -48,6 +48,7 @@ export default function Home() {
         {(matches) => matches && <HeroParallaxHome />}
       </MediaQuery>
 
+      <HoverCards />
       <HeroTabs />
     </>
   )

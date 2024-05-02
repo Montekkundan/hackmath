@@ -8,6 +8,7 @@ type Tab = {
   title: string;
   value: string;
   content?: string | React.ReactNode | any;
+  subheading?: string;
 };
 
 export const ImageTabs = ({
@@ -101,6 +102,20 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
+      {tabs.map((tab) => (
+        <span 
+          key={tab.value + "-subheading"} 
+          style={{ 
+            display: isActive(tab) ? 'block' : 'none',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 1 
+          }}
+        >
+          {tab.subheading}
+        </span>
+      ))}
       {tabs.map((tab, idx) => (
         <motion.div
           key={tab.value}
