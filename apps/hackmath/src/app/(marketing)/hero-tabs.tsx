@@ -22,37 +22,37 @@ export function HeroTabs() {
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
           <p>Personal Chatbot</p>
-          <Content image="/product/chat.png" />
+          <Content image="/product/drham2.png" />
         </div>
       ),
     },
     {
-      title: "Leaderboard",
-      value: "leaderboard",
+      title: "Analytics",
+      value: "analytics",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
           <p>Leaderboard</p>
-          <Content image="/product/leaderboard.png"  />
+          <Content image="/product/analytics.png"  />
         </div>
       ),
     },
     {
-      title: "Quests",
-      value: "quests",
+      title: "Lessons",
+      value: "lessons",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
           <p>Quests</p>
-          <Content image="/product/quests.png"  />
+          <Content image="/product/lesson.png"  />
         </div>
       ),
     },
     {
-      title: "Shop",
-      value: "shop",
+      title: "Application",
+      value: "application",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
           <p>Shop</p>
-          <Content image="/product/shop.png"  />
+          <Content image="/product/application.png"  />
         </div>
       ),
     },
