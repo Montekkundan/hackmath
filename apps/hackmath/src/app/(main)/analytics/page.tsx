@@ -30,18 +30,18 @@ const Analytics = async () => {
           </Card>
           <Card className="w-full">
             <CardContent className="mt-4">
-              <div className="flex flex-row">
+              <div className="flex flex-row justify-between">
                 <div className="flex flex-col">
-                  <div className="text-2xl font-bold">Total Solved</div>
-                  <p className="text-xs text-muted-foreground">1503</p>
+                  <div className="text-xl font-medium">Total Solved</div>
+                  <p className="text-xl font-bold">1503</p>
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-2xl font-bold">Total Solved</div>
-                  <p className="text-xs text-muted-foreground">1503</p>
+                  <div className="text-xl font-medium">Total XP</div>
+                  <p className="text-xl font-bold">23234 XP</p>
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-2xl font-bold">Total Solved</div>
-                  <p className="text-xs text-muted-foreground">1503</p>
+                  <div className="text-xl font-medium">Time Spent</div>
+                  <p className="text-xl font-bold">6 hr 23m</p>
                 </div>
               </div>
             </CardContent>
@@ -56,19 +56,19 @@ const Analytics = async () => {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-2xl font-bold">Ratings</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="flex flex-col">
+            <CardContent className="h-3/4">
+              <div className="flex flex-col mt-4 h-2/4 justify-between">
                 <div className="flex flex-row justify-between">
                   <div className="text-2xl font-bold">Functions</div>
                   <p className="text-xs text-muted-foreground">Beginner</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <div className="text-2xl font-bold">Functions</div>
-                  <p className="text-xs text-muted-foreground">Beginner</p>
+                  <p className="text-xs text-muted-foreground">Intermediate</p>
                 </div>
                 <div className="flex flex-row justify-between">
                   <div className="text-2xl font-bold">Functions</div>
-                  <p className="text-xs text-muted-foreground">Beginner</p>
+                  <p className="text-xs text-muted-foreground">Advanced</p>
                 </div>
               </div>
             </CardContent>
