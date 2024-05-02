@@ -31,7 +31,7 @@ export function HeroTabs() {
       value: "analytics",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
-          <p>Leaderboard</p>
+          <p>Analytics</p>
           <Content image="/product/analytics.png"  />
         </div>
       ),
@@ -41,7 +41,7 @@ export function HeroTabs() {
       value: "lessons",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
-          <p>Quests</p>
+          <p>Interactive Lessons</p>
           <Content image="/product/lesson.png"  />
         </div>
       ),
@@ -51,7 +51,7 @@ export function HeroTabs() {
       value: "application",
       content: (
         <div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-red-700 to-red-900">
-          <p>Shop</p>
+          <p>Application</p>
           <Content image="/product/application.png"  />
         </div>
       ),
